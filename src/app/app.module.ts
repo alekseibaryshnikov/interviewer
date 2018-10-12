@@ -9,6 +9,7 @@ import { CheckboxComponent } from './form/checkbox/checkbox.component';
 import { RadioComponent } from './form/radio/radio.component';
 import { SelectComponent } from './form/select/select.component';
 import { FileComponent } from './form/file/file.component';
+import { HostDirective } from './shared/directives/host.directive';
 
 @NgModule({
   declarations: [
@@ -19,12 +20,20 @@ import { FileComponent } from './form/file/file.component';
     CheckboxComponent,
     RadioComponent,
     SelectComponent,
-    FileComponent
+    FileComponent,
+    HostDirective
   ],
-  imports: [
-    BrowserModule
-  ],
+  imports: [BrowserModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    FormComponent,
+    InputComponent,
+    CheckboxComponent,
+    FileComponent,
+    RadioComponent,
+    SelectComponent,
+    TextareaComponent
+  ]
 })
-export class AppModule { }
+export class AppModule {}
