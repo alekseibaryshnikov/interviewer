@@ -3,4 +3,5 @@ export interface FormElementModel {
   type: string;
   label: string;
   name: string;
+  placeholder?: string;
 }

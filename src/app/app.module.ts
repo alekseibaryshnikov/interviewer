@@ -10,6 +10,7 @@ import { RadioComponent } from './form/radio/radio.component';
 import { SelectComponent } from './form/select/select.component';
 import { FileComponent } from './form/file/file.component';
 import { HostDirective } from './shared/directives/host.directive';
+import { DoubleClickDirective } from './shared/directives/double-click.directive';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HostDirective } from './shared/directives/host.directive';
     RadioComponent,
     SelectComponent,
     FileComponent,
-    HostDirective
+    HostDirective,
+    DoubleClickDirective
   ],
   imports: [BrowserModule],
   providers: [],
