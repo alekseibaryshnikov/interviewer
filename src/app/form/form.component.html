@@ -1,19 +1,19 @@
 <div class="form">
-
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 pb-3">
       <h1 class="display-2">Form constructor</h1>
     </div>
     <div class="col-12 py-3">
       <h2>Create element</h2>
-      <div class="btn-group">
-        <button (click)="onAddFormElement('inputField')" class="btn btn-outline-secondary">Text field</button>
+      <div class="btn-group py-3">
+        <button (click)="onAddFormElement('inputText')" class="btn btn-outline-secondary">Text field</button>
         <button (click)="onAddFormElement('textarea')" class="btn btn-outline-secondary">Text area</button>
-        <button (click)="onAddFormElement('checkbox')" class="btn btn-outline-secondary">Checkbox</button>
-        <button (click)="onAddFormElement('radioButton')" class="btn btn-outline-secondary">Radio</button>
+        <button (click)="onAddFormElement('inputCheckbox')" class="btn btn-outline-secondary">Checkbox</button>
+        <button (click)="onAddFormElement('inputRadio')" class="btn btn-outline-secondary">Radio</button>
         <button (click)="onAddFormElement('select')" class="btn btn-outline-secondary">Select</button>
         <button (click)="onAddFormElement('inputFile')" class="btn btn-outline-secondary">File</button>
       </div>
+      <hr>
     </div>
     <div class="col-12 pb-3">
       <ng-template appHost></ng-template>

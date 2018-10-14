@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CheckboxComponent } from './checkbox.component';
+import { RadioInputComponent } from './radio-input.component';
 
-describe('CheckboxComponent', () => {
-  let component: CheckboxComponent;
-  let fixture: ComponentFixture<CheckboxComponent>;
+describe('RadioInputComponent', () => {
+  let component: RadioInputComponent;
+  let fixture: ComponentFixture<RadioInputComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheckboxComponent ]
+      declarations: [ RadioInputComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CheckboxComponent);
+    fixture = TestBed.createComponent(RadioInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

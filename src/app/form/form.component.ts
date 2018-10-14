@@ -7,14 +7,9 @@ import {
 import { StorageService } from '../shared/services/storage.service';
 import { FormElementModel } from '../shared/models/form-element.model';
 import { Observable } from 'rxjs';
-import { InputComponent } from './input/input.component';
-import { TextareaComponent } from './textarea/textarea.component';
-import { CheckboxComponent } from './checkbox/checkbox.component';
-import { RadioComponent } from './radio/radio.component';
-import { SelectComponent } from './select/select.component';
 import { HostDirective } from '../shared/directives/host.directive';
 import { DynamicComponent } from '../shared/models/dynamic-component';
-import { ComponentTypes } from '../shared/models/component-types';
+import { FormElementComponent } from './form-element/form-element.component';
 
 @Component({
   selector: 'app-form',
@@ -23,15 +18,6 @@ import { ComponentTypes } from '../shared/models/component-types';
 })
 export class FormComponent implements OnInit {
   formElements$: Observable<FormElementModel[]>;
-
-  private _elementTypes: ComponentTypes[] = [
-    { type: 'inputField', component: InputComponent },
-    { type: 'textarea', component: TextareaComponent },
-    { type: 'checkbox', component: CheckboxComponent },
-    { type: 'radioButton', component: RadioComponent },
-    { type: 'select', component: SelectComponent },
-    { type: 'inputFile', component: InputComponent }
-  ];
 
   @ViewChild(HostDirective)
   host: HostDirective;
@@ -46,28 +32,18 @@ export class FormComponent implements OnInit {
 
     this._storageService.previewForm.subscribe(formEelements => {
       viewContainerRef.clear();
-      
-      formEelements.forEach(formElement => {
-        const componentType = this._elementTypes.find(element => {
-          return element.type === formElement.type;
-        });
 
-        if (componentType) {
-          let componentFactory = this._componentFactoryResolver.resolveComponentFactory(componentType.component);
-          let componentRef = viewContainerRef.createComponent(componentFactory);
-          (<DynamicComponent>componentRef.instance).data = formElement;
-        } else {
-          console.error('Cant find cmponent type with name ' + formElement.type);
-        }
+      formEelements.forEach(formElement => {
+        let componentFactory = this._componentFactoryResolver.resolveComponentFactory(FormElementComponent);
+        let componentRef = viewContainerRef.createComponent(componentFactory);
+        (<DynamicComponent>componentRef.instance).data = formElement;
+        (<DynamicComponent>componentRef.instance).type = formElement.type;
       });
     });
   }
 
   onAddFormElement(elementType: string) {
-    let formElement = this._elementTypes.find(el => el.type === elementType);
-    formElement = formElement ? formElement : { type: 'inputField', component: InputComponent };
-
-    const newComponent = this._makeDefaultComponentData(formElement.type);
+    const newComponent = this._makeDefaultComponentData(elementType);
     const result = this._storageService.onAddFormElement(newComponent);
     if (result !== 0) {
       alert(result);

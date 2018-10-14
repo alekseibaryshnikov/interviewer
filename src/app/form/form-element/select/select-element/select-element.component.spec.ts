@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextareaComponent } from './textarea.component';
+import { SelectElementComponent } from './select-element.component';
 
-describe('TextareaComponent', () => {
-  let component: TextareaComponent;
-  let fixture: ComponentFixture<TextareaComponent>;
+describe('SelectElementComponent', () => {
+  let component: SelectElementComponent;
+  let fixture: ComponentFixture<SelectElementComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextareaComponent ]
+      declarations: [ SelectElementComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TextareaComponent);
+    fixture = TestBed.createComponent(SelectElementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

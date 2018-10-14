@@ -17,7 +17,7 @@ export class DoubleClickDirective {
   onOutclick = new EventEmitter<boolean>();
 
   constructor(private _renderer: Renderer2) { }
-  
+
   /**
    * When doubleclicked at label of form element, enable editor
    *
@@ -27,7 +27,7 @@ export class DoubleClickDirective {
   @HostListener('dblclick', ['$event'])
   onDoubleClick($event: Event) {
     this._target = <HTMLElement>$event.target;
-    
+
     if (!this._editor && !this._isActive) {
       this._editor = this._makeEditorField(this._target);
       this._parent = this._renderer.parentNode(this._target);
@@ -35,7 +35,7 @@ export class DoubleClickDirective {
       this._renderer.insertBefore(this._parent, this._editor, nextSibling);
 
       this._toggleEditor(true);
-    } else if(!this._isActive) {
+    } else if (!this._isActive) {
       this._toggleEditor(true);
     }
   }
@@ -50,9 +50,7 @@ export class DoubleClickDirective {
   onClick($event: Event) {
     const target = <HTMLElement>$event.target;
     if (this._isActive && target !== this._editor) {
-      this._toggleEditor(false);
-      this._target.innerHTML = this._editor.value;
-      this.onOutclick.emit(true);
+      this._changeLabelData();
     }
   }
 
@@ -65,10 +63,18 @@ export class DoubleClickDirective {
   @HostListener('document:keydown', ['$event'])
   onkeydown($event: KeyboardEvent) {
     if ($event.keyCode === 13) {
-      this._toggleEditor(false);
-      this._target.innerHTML = this._editor.value;
-      this.onOutclick.emit(true);
+      this._changeLabelData();
     }
+  }
+
+  private _changeLabelData() {
+    this._toggleEditor(false);
+    if (this._editor.value.trim() !== '') {
+      this._target.innerHTML = this._editor.value;
+    } else {
+      this._editor.value = this._target.innerHTML;
+    }
+    this.onOutclick.emit(true);
   }
 
   private _toggleEditor(status: boolean) {

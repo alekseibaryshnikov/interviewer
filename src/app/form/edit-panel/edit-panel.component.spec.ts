@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileComponent } from './file.component';
+import { EditPanelComponent } from './edit-panel.component';
 
-describe('FileComponent', () => {
-  let component: FileComponent;
-  let fixture: ComponentFixture<FileComponent>;
+describe('EditPanelComponent', () => {
+  let component: EditPanelComponent;
+  let fixture: ComponentFixture<EditPanelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileComponent ]
+      declarations: [ EditPanelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileComponent);
+    fixture = TestBed.createComponent(EditPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

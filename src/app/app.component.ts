@@ -2,6 +2,7 @@ import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { HostDirective } from './shared/directives/host.directive';
 import { FormComponent } from './form/form.component';
 import { DatabaseService } from './shared/services/database.service';
+import { StorageService } from './shared/services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent {
   @ViewChild(HostDirective)
   host: HostDirective;
 
-  constructor(private _componentFactoryResolver: ComponentFactoryResolver, private _database: DatabaseService) {}
+  constructor(private _componentFactoryResolver: ComponentFactoryResolver, private _database: DatabaseService, private _storageService: StorageService) { }
 
   onCreateForm() {
     const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
@@ -22,11 +23,11 @@ export class AppComponent {
     const viewContainerRef = this.host.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(componentFactory);
+    viewContainerRef.createComponent(componentFactory);
   }
 
   onDeleteForm() {
-    this.host.viewContainerRef.clear();
+    this._storageService.onDeleteForm();
   }
 
   onClearCache() {

@@ -3,39 +3,39 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
-import { InputComponent } from './form/input/input.component';
-import { TextareaComponent } from './form/textarea/textarea.component';
-import { CheckboxComponent } from './form/checkbox/checkbox.component';
-import { RadioComponent } from './form/radio/radio.component';
-import { SelectComponent } from './form/select/select.component';
-import { FileComponent } from './form/file/file.component';
 import { HostDirective } from './shared/directives/host.directive';
 import { DoubleClickDirective } from './shared/directives/double-click.directive';
+import { EditPanelComponent } from './form/edit-panel/edit-panel.component';
+import { FormElementComponent } from './form/form-element/form-element.component';
+import { RadioElementComponent } from './form/form-element/radio-input/radio-element/radio-element.component';
+import { RadioInputComponent } from './form/form-element/radio-input/radio-input.component';
+import { SelectComponent } from './form/form-element/select/select.component';
+import { SelectElementComponent } from './form/form-element/select/select-element/select-element.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
-    InputComponent,
-    TextareaComponent,
-    CheckboxComponent,
-    RadioComponent,
-    SelectComponent,
-    FileComponent,
     HostDirective,
-    DoubleClickDirective
+    DoubleClickDirective,
+    EditPanelComponent,
+    FormElementComponent,
+    RadioInputComponent,
+    RadioElementComponent,
+    SelectComponent,
+    SelectElementComponent
   ],
   imports: [BrowserModule],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     FormComponent,
-    InputComponent,
-    CheckboxComponent,
-    FileComponent,
-    RadioComponent,
+    FormElementComponent,
+    RadioInputComponent,
+    RadioElementComponent,
     SelectComponent,
-    TextareaComponent
+    SelectElementComponent
   ]
 })
-export class AppModule {}
+export class AppModule { }
