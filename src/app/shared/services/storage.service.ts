@@ -15,7 +15,7 @@ export class StorageService {
   _productionForm = new BehaviorSubject(<FormElementModel[]>[]);
   productionForm = this._productionForm.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   onAddFormElement(inElement: FormElementModel): string | number {
     const isExist = this._formElements.find(element => {
@@ -23,7 +23,9 @@ export class StorageService {
     });
 
     if (isExist) {
-      return `Element with this name "${isExist.name}" and type "${isExist.type}" already exist!`;
+      return `Element with this name "${isExist.name}" and type "${
+        isExist.type
+      }" already exist!`;
     } else {
       this._formElements.push(inElement);
       this._previewForm.next(this._formElements);
@@ -38,7 +40,10 @@ export class StorageService {
    * @param {FormElementModel} radioElement
    * @memberof StorageService
    */
-  onAddVariant(inElement: FormElementModel, inVariant: FormElementModel): string | number {
+  onAddVariant(
+    inElement: FormElementModel,
+    inVariant: FormElementModel
+  ): string | number {
     const radio = this._formElements.find(element => {
       return element.id === inElement.id;
     });
@@ -61,23 +66,25 @@ export class StorageService {
   }
 
   onEditVariant(inVariant: FormElementModel) {
-    const formElement = this._formElements.find(element => {
-      return element.id === inVariant.parent;
+    const formElement = this._formElements.find(el => {
+      return el.id === inVariant.parent;
     });
 
-    formElement.variants.map(variant => {
-      if(variant.id === inVariant.id) {
-        variant = inVariant;
-        return variant;
-      }
-    });
+    if (formElement) {
+      formElement.variants.map(variant => {
+        if (variant.id === inVariant.id) {
+          variant = inVariant;
+          return variant;
+        }
+      });
 
-    this._previewForm.next(this._formElements);
+      this._previewForm.next(this._formElements);
+    }
   }
 
   onRemoveVariant(inVariant: FormElementModel) {
     this._formElements.map(formElement => {
-      if(formElement.id === inVariant.parent) {
+      if (formElement.id === inVariant.parent) {
         formElement.variants = formElement.variants.filter(variant => {
           return inVariant.id !== variant.id;
         });
@@ -113,7 +120,9 @@ export class StorageService {
         this._formElements[index] = this._formElements[index - 1];
         this._formElements[index - 1] = inElement;
       } else {
-        this._formElements[index] = this._formElements[this._formElements.length - 1];
+        this._formElements[index] = this._formElements[
+          this._formElements.length - 1
+        ];
         this._formElements[this._formElements.length - 1] = inElement;
       }
     } else if (direction === 'down') {

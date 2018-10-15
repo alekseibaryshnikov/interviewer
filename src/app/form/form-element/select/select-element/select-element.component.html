@@ -1,3 +1,10 @@
-<p>
-  select-element works!
-</p>
+<div class="row">
+  <div class="col-8">
+    <div class="form-group">
+      <input #variantValue (keypress)="onValueChanged($event)" (focusout)="onSaveValue()" type="text" class="form-control" id="{{data.name}}" value="{{data.value}}">
+    </div>
+  </div>
+  <div class="col-4">
+    <button class="btn btn-danger" (click)="onRemoveVariant()">Delete</button>
+  </div>
+</div>

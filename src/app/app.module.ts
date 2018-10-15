@@ -11,6 +11,7 @@ import { RadioElementComponent } from './form/form-element/radio-input/radio-ele
 import { RadioInputComponent } from './form/form-element/radio-input/radio-input.component';
 import { SelectComponent } from './form/form-element/select/select.component';
 import { SelectElementComponent } from './form/form-element/select/select-element/select-element.component';
+import { ValueControllerDirective } from './shared/directives/value-controller.directive';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { SelectElementComponent } from './form/form-element/select/select-elemen
     RadioInputComponent,
     RadioElementComponent,
     SelectComponent,
-    SelectElementComponent
+    SelectElementComponent,
+    ValueControllerDirective
   ],
   imports: [BrowserModule],
   providers: [],
