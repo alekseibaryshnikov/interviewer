@@ -1,10 +1,16 @@
-import { Directive, HostListener, Renderer2, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Directive,
+  HostListener,
+  Renderer2,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 @Directive({
   selector: '[appDoubleClick]'
 })
 export class DoubleClickDirective {
-
   private _editor: HTMLInputElement;
   private _parent: HTMLElement;
   private _target;
@@ -14,16 +20,10 @@ export class DoubleClickDirective {
   setPlaceholder: boolean;
 
   @Output()
-  onOutclick = new EventEmitter<boolean>();
+  outclick = new EventEmitter<boolean>();
 
-  constructor(private _renderer: Renderer2) { }
+  constructor(private _renderer: Renderer2) {}
 
-  /**
-   * When doubleclicked at label of form element, enable editor
-   *
-   * @param {Event} $event
-   * @memberof DoubleClickDirective
-   */
   @HostListener('dblclick', ['$event'])
   onDoubleClick($event: Event) {
     this._target = <HTMLElement>$event.target;
@@ -40,12 +40,6 @@ export class DoubleClickDirective {
     }
   }
 
-  /**
-   * When otclicked from the form element save it
-   *
-   * @param {Event} $event
-   * @memberof DoubleClickDirective
-   */
   @HostListener('document:click', ['$event'])
   onClick($event: Event) {
     const target = <HTMLElement>$event.target;
@@ -54,12 +48,6 @@ export class DoubleClickDirective {
     }
   }
 
-  /**
-   * When enter key was pressed save the form element
-   *
-   * @param {KeyboardEvent} $event
-   * @memberof DoubleClickDirective
-   */
   @HostListener('document:keydown', ['$event'])
   onkeydown($event: KeyboardEvent) {
     if ($event.keyCode === 13) {
@@ -74,7 +62,7 @@ export class DoubleClickDirective {
     } else {
       this._editor.value = this._target.innerHTML;
     }
-    this.onOutclick.emit(true);
+    this.outclick.emit(true);
   }
 
   private _toggleEditor(status: boolean) {
@@ -94,7 +82,11 @@ export class DoubleClickDirective {
     this._renderer.addClass(input, 'form-control');
     this._renderer.addClass(input, 'is-valid');
     this._renderer.addClass(input, 'mb-3');
-    this._renderer.setAttribute(input, 'value', (<HTMLElement>target).innerHTML);
+    this._renderer.setAttribute(
+      input,
+      'value',
+      (<HTMLElement>target).innerHTML
+    );
     return input;
   }
 }

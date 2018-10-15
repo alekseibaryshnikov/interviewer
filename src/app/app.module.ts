@@ -11,8 +11,8 @@ import { RadioElementComponent } from './form/form-element/radio-input/radio-ele
 import { RadioInputComponent } from './form/form-element/radio-input/radio-input.component';
 import { SelectComponent } from './form/form-element/select/select.component';
 import { SelectElementComponent } from './form/form-element/select/select-element/select-element.component';
-import { ValueControllerDirective } from './shared/directives/value-controller.directive';
-
+import { ProductionFormComponent } from './production-form/production-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,9 +26,9 @@ import { ValueControllerDirective } from './shared/directives/value-controller.d
     RadioElementComponent,
     SelectComponent,
     SelectElementComponent,
-    ValueControllerDirective
+    ProductionFormComponent
   ],
-  imports: [BrowserModule],
+  imports: [BrowserModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -40,4 +40,4 @@ import { ValueControllerDirective } from './shared/directives/value-controller.d
     SelectElementComponent
   ]
 })
-export class AppModule { }
+export class AppModule {}

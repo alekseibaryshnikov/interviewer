@@ -9,19 +9,20 @@ import { StorageService } from 'src/app/shared/services/storage.service';
   styleUrls: ['./radio-element.component.scss']
 })
 export class RadioElementComponent implements OnInit, DynamicComponent {
+  @Input()
+  data: FormElementModel;
+  @Input()
+  type: string;
 
-  @Input() data: FormElementModel;
-  @Input() type: string;
+  @ViewChild('label')
+  label: ElementRef;
 
-  @ViewChild('label') label: ElementRef;
+  constructor(private _storageService: StorageService) {}
 
-  constructor(private _storageService: StorageService) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   editElement() {
-    if(this.label.nativeElement.innerHTML.trim() !== '') {
+    if (this.label.nativeElement.innerHTML.trim() !== '') {
       this.data.label = this.label.nativeElement.innerHTML;
       this._storageService.onEditVariant(this.data);
     }
@@ -30,5 +31,4 @@ export class RadioElementComponent implements OnInit, DynamicComponent {
   onRemoveVariant() {
     this._storageService.onRemoveVariant(this.data);
   }
-
 }

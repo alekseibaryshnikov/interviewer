@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { StorageService } from '../shared/services/storage.service';
 import { FormElementModel } from '../shared/models/form-element.model';
-import { Observable } from 'rxjs';
 import { HostDirective } from '../shared/directives/host.directive';
 import { DynamicComponent } from '../shared/models/dynamic-component';
 import { FormElementComponent } from './form-element/form-element.component';
@@ -17,25 +16,25 @@ import { FormElementComponent } from './form-element/form-element.component';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  formElements$: Observable<FormElementModel[]>;
-
   @ViewChild(HostDirective)
   host: HostDirective;
 
   constructor(
     private _storageService: StorageService,
     private _componentFactoryResolver: ComponentFactoryResolver
-  ) { }
+  ) {}
 
   ngOnInit() {
-    let viewContainerRef = this.host.viewContainerRef;
+    const viewContainerRef = this.host.viewContainerRef;
 
     this._storageService.previewForm.subscribe(formEelements => {
       viewContainerRef.clear();
 
       formEelements.forEach(formElement => {
-        let componentFactory = this._componentFactoryResolver.resolveComponentFactory(FormElementComponent);
-        let componentRef = viewContainerRef.createComponent(componentFactory);
+        const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
+          FormElementComponent
+        );
+        const componentRef = viewContainerRef.createComponent(componentFactory);
         (<DynamicComponent>componentRef.instance).data = formElement;
         (<DynamicComponent>componentRef.instance).type = formElement.type;
       });

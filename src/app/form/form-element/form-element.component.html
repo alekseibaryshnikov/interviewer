@@ -3,14 +3,14 @@
     <ng-container [ngSwitch]="type">
       <ng-container *ngSwitchCase="'inputText'">
         <div class="form-group">
-          <label #label appDoubleClick [setPlaceholder]="true" (onOutclick)="editElement()" for="{{data.name}}">{{data.label}}</label>
+          <label #label appDoubleClick [setPlaceholder]="true" (outclick)="editElement()" for="{{data.name}}">{{data.label}}</label>
           <input type="text" class="form-control" id="{{data.name}}" name="{{data.name}}" placeholder="{{data.label}}"
             readonly>
         </div>
       </ng-container>
       <ng-container *ngSwitchCase="'textarea'">
         <div class="form-group">
-          <label #label appDoubleClick [setPlaceholder]="true" (onOutclick)="editElement()" for="{{data.name}}">{{data.label}}</label>
+          <label #label appDoubleClick [setPlaceholder]="true" (outclick)="editElement()" for="{{data.name}}">{{data.label}}</label>
           <textarea class="form-control" id="{{data.name}}" name="{{data.name}}" rows="3" readonly></textarea>
         </div>
       </ng-container>
@@ -20,13 +20,13 @@
           <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         <p class="py-1">
-          <small #label appDoubleClick (onOutclick)="editElement()">{{data.label}}</small>
+          <small #label appDoubleClick (outclick)="editElement()">{{data.label}}</small>
         </p>
       </ng-container>
       <ng-container *ngSwitchCase="'inputCheckbox'">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="Yes" id="{{data.name}}" name="{{data.name}}" disabled>
-          <label #label appDoubleClick (onOutclick)="editElement()" for="{{data.name}}">{{data.label}}</label>
+          <label #label appDoubleClick (outclick)="editElement()" for="{{data.name}}">{{data.label}}</label>
         </div>
       </ng-container>
       <app-radio-input *ngSwitchCase="'inputRadio'" [data]="data"></app-radio-input>

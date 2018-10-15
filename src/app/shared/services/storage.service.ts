@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormElementModel } from '../models/form-element.model';
 import { BehaviorSubject } from 'rxjs';
-import { element } from '@angular/core/src/render3/instructions';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +8,23 @@ import { element } from '@angular/core/src/render3/instructions';
 export class StorageService {
   _formElements: FormElementModel[] = [];
 
+  // Editor observable
   _previewForm = new BehaviorSubject(<FormElementModel[]>[]);
   previewForm = this._previewForm.asObservable();
 
+  // Production observable
   _productionForm = new BehaviorSubject(<FormElementModel[]>[]);
   productionForm = this._productionForm.asObservable();
 
-  constructor() {}
+  _localStorage = window.localStorage;
+  _productionFormName = 'productionForm';
+
+  constructor() {
+    const savedForm = this._localStorage.getItem(this._productionFormName);
+    if (savedForm) {
+      this._productionForm.next(JSON.parse(savedForm));
+    }
+  }
 
   onAddFormElement(inElement: FormElementModel): string | number {
     const isExist = this._formElements.find(element => {
@@ -34,11 +43,9 @@ export class StorageService {
   }
 
   /**
-   * Add variant into radio button group or select
-   *
-   * @param {FormElementModel} inElement
-   * @param {FormElementModel} radioElement
-   * @memberof StorageService
+   * Add variant into select or radio form element
+   * @param inElement incoming element
+   * @param inVariant incoming element variant
    */
   onAddVariant(
     inElement: FormElementModel,
@@ -65,6 +72,10 @@ export class StorageService {
     return 0;
   }
 
+  /**
+   * Edit variant in select or radio from element
+   * @param inVariant incoming variant
+   */
   onEditVariant(inVariant: FormElementModel) {
     const formElement = this._formElements.find(el => {
       return el.id === inVariant.parent;
@@ -82,6 +93,10 @@ export class StorageService {
     }
   }
 
+  /**
+   * Remove one variant from select or radio form element
+   * @param inVariant incoming variant
+   */
   onRemoveVariant(inVariant: FormElementModel) {
     this._formElements.map(formElement => {
       if (formElement.id === inVariant.parent) {
@@ -104,11 +119,9 @@ export class StorageService {
   }
 
   /**
-   * Need for sorting form elements
-   *
-   * @param {FormElementModel} inElement
-   * @param {string} direction
-   * @memberof StorageService
+   * Move element above or below in form view
+   * @param inElement incoming element
+   * @param direction move up or bottom
    */
   onMoveElement(inElement: FormElementModel, direction: string) {
     const index = this._formElements.findIndex(element => {
@@ -138,12 +151,6 @@ export class StorageService {
     this._previewForm.next(this._formElements);
   }
 
-  /**
-   * When doubleclick and editing label
-   *
-   * @param {FormElementModel} inElement
-   * @memberof StorageService
-   */
   onEditElement(inElement: FormElementModel) {
     this._formElements = this._formElements.map(element => {
       if (inElement.id === element.id) {
@@ -153,6 +160,11 @@ export class StorageService {
     });
   }
 
+  /**
+   * Set required or not for form element
+   * @param inElement incoming element
+   * @param status incoming status
+   */
   onChangeRequired(inElement: FormElementModel, status: boolean) {
     this._formElements.map(element => {
       if (inElement.id === element.id) {
@@ -166,13 +178,39 @@ export class StorageService {
     });
   }
 
-  onUploadProduction() {
-    this._productionForm.next(this._formElements);
+  onSaveForm() {
+    this._localStorage.removeItem(this._productionFormName);
+
+    const compileForm = JSON.stringify(this._formElements);
+    this._localStorage.setItem(this._productionFormName, compileForm);
+    this._productionForm.next(JSON.parse(compileForm));
+  }
+
+  onRequestForm() {
+    const savedForm = this._localStorage.getItem(this._productionFormName);
+    if (savedForm) {
+      this._productionForm.next(JSON.parse(savedForm));
+    } else {
+      this._productionForm.next([]);
+    }
   }
 
   onDeleteForm() {
     this._formElements = [];
     this._previewForm.next(this._formElements);
+  }
+
+  onClearCache() {
+    this._localStorage.removeItem(this._productionFormName);
+    this._productionForm.next([]);
+  }
+
+  onLoadFromCache() {
+    const storage = this._localStorage.getItem(this._productionFormName);
+    if (storage) {
+      this._formElements = JSON.parse(storage);
+      this._previewForm.next(this._formElements);
+    }
   }
 
   getCountOfElements() {

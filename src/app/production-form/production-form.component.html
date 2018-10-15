@@ -1,0 +1,66 @@
+<div class="form" *ngIf="(formElements$ | async)?.length > 0">
+  <div class="row">
+    <div class="col-12 pb-3">
+      <h1 class="display-2">Production form</h1>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <ng-container *ngFor="let formElement of formElements$ | async" [ngSwitch]="formElement.type">
+          <ng-container *ngSwitchCase="'inputText'">
+            <div class="form-group">
+              <label [class.required]="formElement.required" for="{{formElement.name}}">{{formElement.label}}</label>
+              <input type="text" class="form-control" id="{{formElement.name}}" name="{{formElement.name}}" placeholder="{{formElement.label}}"
+                [required]="formElement.required" formControlName="{{formElement.name}}">
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'textarea'">
+            <div class="form-group">
+              <label [class.required]="formElement.required" for="{{formElement.name}}">{{formElement.label}}</label>
+              <textarea class="form-control" id="{{formElement.name}}" name="{{formElement.name}}" rows="3" [required]="formElement.required"
+                formControlName="{{formElement.name}}"></textarea>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'inputFile'">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="{{formElement.name}}" name="{{formElement.name}}"
+                [required]="formElement.required" formControlName="{{formElement.name}}">
+              <label [class.required]="formElement.required" class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <p class="py-1">
+              <small>{{formElement.label}}</small>
+            </p>
+          </ng-container>
+          <ng-container *ngSwitchCase="'inputCheckbox'">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="Yes" id="{{formElement.name}}" name="{{formElement.name}}"
+                formControlName="{{formElement.name}}">
+              <label [class.required]="formElement.required" for="{{formElement.name}}">{{formElement.label}}</label>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'inputRadio'">
+            <h3>{{formElement.label}}</h3>
+            <div class="form-check" *ngFor="let variant of formElement.variants; let i = index">
+              <input class="form-check-input" type="radio" name={{formElement.name}} id="{{variant.name}}" [checked]="i === 0"
+                formControlName="{{formElement.name}}">
+              <label class="form-check-label" for="{{variant.name}}" value="yes">
+                {{variant.label}}
+              </label>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'select'">
+            <h3>{{formElement.label}}</h3>
+            <select class="custom-select custom-select-lg mb-3" formControlName="{{formElement.name}}" name={{formElement.name}}
+              id="{{formElement.name}}">
+              <option *ngFor="let variant of formElement.variants; let i = index" [selected]="i === 0" value="{{variant.value}}">{{variant.label}}</option>
+            </select>
+          </ng-container>
+        </ng-container>
+        <hr>
+        <button type="submit" [disabled]="!form.valid" class="btn btn-success">Submit</button>
+        <small class="pl-3" *ngIf='!form.valid'>
+          Please, fit all field wich is marked with bold font...
+        </small>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, ComponentFactoryResolver } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  ComponentFactoryResolver
+} from '@angular/core';
 import { DynamicComponent } from 'src/app/shared/models/dynamic-component';
 import { FormElementModel } from 'src/app/shared/models/form-element.model';
 import { StorageService } from 'src/app/shared/services/storage.service';
@@ -12,18 +19,24 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./radio-input.component.scss']
 })
 export class RadioInputComponent implements OnInit, DynamicComponent {
+  @Input()
+  data: FormElementModel;
+  @Input()
+  type: string;
 
-  @Input() data: FormElementModel;
-  @Input() type: string;
-
-  @ViewChild(HostDirective) host: HostDirective;
+  @ViewChild(HostDirective)
+  host: HostDirective;
 
   private _variants = new BehaviorSubject(<FormElementModel[]>[]);
   variants = this._variants.asObservable();
 
-  constructor(private _storageService: StorageService, private _componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(
+    private _storageService: StorageService,
+    private _componentFactoryResolver: ComponentFactoryResolver
+  ) {}
 
-  @ViewChild('label') label: ElementRef;
+  @ViewChild('label')
+  label: ElementRef;
 
   ngOnInit() {
     if (!this.data.variants) {
@@ -34,12 +47,16 @@ export class RadioInputComponent implements OnInit, DynamicComponent {
 
     this.variants.subscribe(variants => {
       if (variants) {
-        let viewContainerRef = this.host.viewContainerRef;
+        const viewContainerRef = this.host.viewContainerRef;
         viewContainerRef.clear();
 
         variants.forEach(variant => {
-          let componentFactory = this._componentFactoryResolver.resolveComponentFactory(RadioElementComponent);
-          let componentRef = viewContainerRef.createComponent(componentFactory);
+          const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
+            RadioElementComponent
+          );
+          const componentRef = viewContainerRef.createComponent(
+            componentFactory
+          );
           (<DynamicComponent>componentRef.instance).data = variant;
           (<DynamicComponent>componentRef.instance).type = 'inputRadioElement';
         });

@@ -1,7 +1,6 @@
 import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { HostDirective } from './shared/directives/host.directive';
 import { FormComponent } from './form/form.component';
-import { DatabaseService } from './shared/services/database.service';
 import { StorageService } from './shared/services/storage.service';
 
 @Component({
@@ -13,7 +12,10 @@ export class AppComponent {
   @ViewChild(HostDirective)
   host: HostDirective;
 
-  constructor(private _componentFactoryResolver: ComponentFactoryResolver, private _database: DatabaseService, private _storageService: StorageService) { }
+  constructor(
+    private _componentFactoryResolver: ComponentFactoryResolver,
+    private _storageService: StorageService
+  ) {}
 
   onCreateForm() {
     const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
@@ -31,6 +33,15 @@ export class AppComponent {
   }
 
   onClearCache() {
-    this._database.onClearCache();
+    this._storageService.onClearCache();
+  }
+
+  onLoadFromCache() {
+    this._storageService.onLoadFromCache();
+    this.onCreateForm();
+  }
+
+  onSaveForm() {
+    this._storageService.onSaveForm();
   }
 }

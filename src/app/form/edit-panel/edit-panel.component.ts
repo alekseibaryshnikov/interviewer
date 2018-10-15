@@ -8,12 +8,24 @@ import { StorageService } from 'src/app/shared/services/storage.service';
   styleUrls: ['./edit-panel.component.scss']
 })
 export class EditPanelComponent implements OnInit {
+  @Input()
+  formElement: FormElementModel;
 
-  @Input() formElement: FormElementModel;
+  requiredClass = {};
+  requiredTitle = '';
 
-  constructor(private _storageService: StorageService, private _renderer2: Renderer2) { }
+  constructor(
+    private _storageService: StorageService,
+    private _renderer2: Renderer2
+  ) {}
 
   ngOnInit() {
+    this.requiredClass = {
+      'btn-warning': this.formElement.required
+    };
+    this.requiredTitle = this.formElement.required
+      ? 'Required'
+      : 'Not required';
   }
 
   onDelete() {
@@ -33,12 +45,10 @@ export class EditPanelComponent implements OnInit {
 
     if (this.formElement.required) {
       this._renderer2.removeClass(element, 'btn-warning');
-      this._renderer2.addClass(element, 'btn-secondary');
       element.innerHTML = 'Not required';
       this._storageService.onChangeRequired(this.formElement, false);
     } else {
       this._renderer2.addClass(element, 'btn-warning');
-      this._renderer2.removeClass(element, 'btn-secondary');
       element.innerHTML = 'Required';
       this._storageService.onChangeRequired(this.formElement, true);
     }
