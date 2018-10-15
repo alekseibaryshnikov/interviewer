@@ -1,4 +1,9 @@
-import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ComponentFactoryResolver,
+  OnInit
+} from '@angular/core';
 import { HostDirective } from './shared/directives/host.directive';
 import { FormComponent } from './form/form.component';
 import { StorageService } from './shared/services/storage.service';
@@ -8,7 +13,7 @@ import { StorageService } from './shared/services/storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild(HostDirective)
   host: HostDirective;
 
@@ -16,6 +21,10 @@ export class AppComponent {
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _storageService: StorageService
   ) {}
+
+  ngOnInit() {
+    this.onCreateForm();
+  }
 
   onCreateForm() {
     const componentFactory = this._componentFactoryResolver.resolveComponentFactory(

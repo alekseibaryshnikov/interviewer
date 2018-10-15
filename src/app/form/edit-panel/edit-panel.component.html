@@ -1,10 +1,6 @@
-<div class="btn-toolbar text-right" role="toolbar">
-  <div class="btn-group mr-2" role="group" aria-label="First group">
-    <button (click)="onDelete()" class="btn btn-danger btn-sm">Delete</button>
-    <button (click)="onSetRequired($event)" class="btn btn-sm" [ngClass]="requiredClass">{{requiredTitle}}</button>
-  </div>
-  <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button (click)="onMoveUp()" class="btn btn-info btn-sm">Up</button>
-    <button (click)="onMoveDown()" class="btn btn-info btn-sm">Down</button>
-  </div>
+<div class="text-right py-3">
+  <button (click)="onDelete()" class="btn btn-danger btn-sm">Delete</button>
+  <button (click)="onSetRequired($event)" class="btn btn-sm" [ngClass]="requiredClass">{{requiredTitle}}</button>
+  <button (click)="onMoveUp()" class="btn btn-info btn-sm">Up</button>
+  <button (click)="onMoveDown()" class="btn btn-info btn-sm">Down</button>
 </div>

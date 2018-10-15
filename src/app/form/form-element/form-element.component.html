@@ -1,5 +1,5 @@
 <div class="row align-items-center pb-3">
-  <div class="col-8">
+  <div class="col-8 col-sm-12">
     <ng-container [ngSwitch]="type">
       <ng-container *ngSwitchCase="'inputText'">
         <div class="form-group">
@@ -34,7 +34,12 @@
       <ng-container></ng-container>
     </ng-container>
   </div>
-  <div class="col-4">
+  <div class="col-4 col-sm-12">
     <app-edit-panel [formElement]="data"></app-edit-panel>
+  </div>
+</div>
+<div class="row py-3 d-block d-sm-none">
+  <div class="col-12">
+    <hr>
   </div>
 </div>

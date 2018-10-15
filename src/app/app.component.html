@@ -2,24 +2,17 @@
   <div class="container-fluid">
     <div class="row pb-5">
       <div class="col-12">
-        <div class="btn-toolbar" role="toolbar">
-          <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button (click)="onCreateForm()" class="btn btn-success">Create</button>
-            <button (click)="onLoadFromCache()" class="btn btn-primary">Load from cache</button>
-            <button (click)="onSaveForm()" class="btn btn-warning">Save</button>
-          </div>
-          <div class="btn-group mr-2" role="group" aria-label="Second group">
-            <button (click)="onDeleteForm()" class="btn btn-danger">Clear preview</button>
-            <button (click)="onClearCache()" class="btn btn-dark">Clear cache</button>
-          </div>
-        </div>
+        <button (click)="onLoadFromCache()" class="btn btn-primary">Load from cache</button>
+        <button (click)="onSaveForm()" class="btn btn-warning">Save</button>
+        <button (click)="onDeleteForm()" class="btn btn-danger">Clear preview</button>
+        <button (click)="onClearCache()" class="btn btn-dark">Clear cache</button>
       </div>
     </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6 col-sm-12 mb-4">
         <ng-template appHost></ng-template>
       </div>
-      <div class="col-6">
+      <div class="col-md-6 col-sm-12 mb-4">
         <app-production-form></app-production-form>
       </div>
     </div>
